@@ -8,5 +8,4 @@ _entry:
     addi a0,a0,1
     mul a0,a0,t0
     add sp,sp,a0
-    #la sp, bootstacktop 
     call start

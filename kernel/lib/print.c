@@ -1,6 +1,8 @@
+#include "lock.h"
 #include "sbi.h"
 #include "types.h"
 #include "print.h"
+#include "utils.h"
 
 typedef __builtin_va_list va_list;
 #define va_start(ap, param) __builtin_va_start(ap, param)
@@ -14,6 +16,10 @@ static char digits[] = "0123456789abcdef";
 
 void panic(char *s);
 
+static struct{
+  struct spinlock lock;
+  int locking;
+} pr;
 
 static void
 printint(int xx, int base, int sign)
@@ -54,11 +60,18 @@ void
 print(char *fmt, ...)
 {
   va_list ap;
-  int i, c;
+  int i, c,locking;
   char *s;
+  
+  
+  locking = pr.locking;
+  if(locking)
+    acquire(&pr.lock);
+  
   if (fmt == 0)
     panic("null fmt");
 
+  //locking = pr.locking;
   va_start(ap, fmt);
   for(i = 0; (c = fmt[i] & 0xff) != 0; i++){
     if(c != '%'){
@@ -96,15 +109,24 @@ print(char *fmt, ...)
   }
   va_end(ap);
 
+  if(locking)
+    release(&pr.lock);
 }
 
 void
 panic(char *s)
 {
+  pr.locking = 0;
   print("panic: ");
   print(s);
   print("\n");
   panicked = 1; // freeze uart output from other CPUs
   for(;;)
     ;
+}
+
+void 
+printinit(void){
+  initlock(&pr.lock,"pr");
+  pr.locking = 1;
 }

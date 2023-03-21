@@ -8,6 +8,7 @@ OBJS =  \
 	$K/print.o	\
 	$K/start.o \
 	$K/utils.o \
+	$K/lock.o \
 
 OBJSS =  \
 	$K/os.o		\
@@ -15,6 +16,7 @@ OBJSS =  \
 	$K/print.o	\
 	$K/start.o  \
 	$K/utils.o \
+	$K/lock.o \
 
 LD = riscv64-linux-gnu-ld 
 CC = riscv64-linux-gnu-gcc

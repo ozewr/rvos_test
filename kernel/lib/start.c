@@ -1,16 +1,23 @@
 #include "types.h"
 #include "utils.h"
 #include "sbi.h"
-
-#define NCPU 3
+#include "print.h"
 __attribute__((aligned(16))) char stacks[4096 * NCPU];
+
+
 
 void thread_start();
 extern void os_main();
 
+
+
 void 
 start(){
     thread_start();
+    if(cpuid() == 0){
+        printinit();
+    }
+    cpuinit();
     os_main();
 }
 

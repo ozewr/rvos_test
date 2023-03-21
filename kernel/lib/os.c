@@ -1,16 +1,17 @@
+#include "lock.h"
 #include "print.h"
 #include "riscv.h"
 #include "sbi.h"
+#include "utils.h"
 
+//int i = 0;
 
+//struct spinlock meg;
 int os_main(void){
-    sbi_hsm_hart_star(1);
-    const char *message = "hello rvos test!";
-    const char *message2 = "print ok";
-    print("%s \n%s\n",message,message2);
-    // if(r_mhartid() == 0){
-    //     print("%d \n cpu",1);
-    // }
+    //const char * meg = "hello";
+    //print("%s\n",meg);
+    print("rvos is botting\n");
     while(1);
+    
     return 0;
 }
