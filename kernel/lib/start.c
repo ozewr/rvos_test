@@ -1,3 +1,4 @@
+#include "kalloc.h"
 #include "types.h"
 #include "utils.h"
 #include "sbi.h"
@@ -16,6 +17,7 @@ start(){
     thread_start();
     if(cpuid() == 0){
         printinit();
+        kinit();
     }
     cpuinit();
     os_main();

@@ -3,6 +3,8 @@
 #include "riscv.h"
 #include "types.h"
 #include "lock.h"
+#include "string.h"
+
 #define NCPU 3
 struct context {
 

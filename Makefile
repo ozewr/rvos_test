@@ -9,6 +9,8 @@ OBJS =  \
 	$K/start.o \
 	$K/utils.o \
 	$K/lock.o \
+	$K/kalloc.o \
+	$K/string.o \
 
 OBJSS =  \
 	$K/os.o		\
@@ -17,7 +19,11 @@ OBJSS =  \
 	$K/start.o  \
 	$K/utils.o \
 	$K/lock.o \
+	$K/kalloc.o \
+	$K/string.o \
 
+
+	
 LD = riscv64-linux-gnu-ld 
 CC = riscv64-linux-gnu-gcc
 AS = riscv64-linux-gnu-as
@@ -32,7 +38,7 @@ CFLAGS += -nostdlib -fno-builtin -mcmodel=medany
 CFLAGS += -MD -ffreestanding -fno-common -mno-relax -I.
 
 QEMU = qemu-system-riscv64
-QFLAGS = -nographic -smp 3 -machine virt 
+QFLAGS = -nographic -m 128M -smp 3 -machine virt 
 QFLAGS += -bios default
 #QFLAGS += -bios /home/light/workplace/opensbi/build/platform/generic/firmware/fw_payload.elf
 $K/kernel : $(OBJS) $K/os.ld 
@@ -56,7 +62,7 @@ $(OBJSS): $K/%.o: $K/%.c
 .PHONY: qemu
 qemu: $K/kernel
 	@echo "Press Ctrl-A and then X to exit QEMU"
-	@$(QEMU) $(QFLAGS) -kernel $K/kernel
+	$(QEMU) $(QFLAGS) -kernel $K/kernel
 
 qemu-gdb:$K/kernel
 	$(QEMU) $(QFLAGS)  -kernel $K/kernel -S -gdb tcp::26000

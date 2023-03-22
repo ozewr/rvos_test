@@ -3,6 +3,16 @@
 
 #include "types.h"
 
+#define KERNBASE 0x80200000L
+#define PHYSTOP (KERNBASE + 128*1024*1024 - 0x00200000)
+
+
+#define PGSIZE 4096 // bytes per page
+#define PGSHIFT 12  // bits of offset within a page
+
+#define PGROUNDUP(sz)  (((sz)+PGSIZE-1) & ~(PGSIZE-1))
+#define PGROUNDDOWN(a) (((a)) & ~(PGSIZE-1))
+
 #define SSTATUS_SPP (1L << 8)  // Previous mode, 1=Supervisor, 0=User
 #define SSTATUS_SPIE (1L << 5) // Supervisor Previous Interrupt Enable
 #define SSTATUS_UPIE (1L << 4) // User Previous Interrupt Enable
