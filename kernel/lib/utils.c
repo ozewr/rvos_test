@@ -1,7 +1,8 @@
 #include "utils.h"
 #include "riscv.h"
 #include "types.h"
-
+#include "trap.h"
+#include "clock.h"
 struct cpu cpus[NCPU];
 uint 
 cpuid(){

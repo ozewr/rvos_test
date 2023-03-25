@@ -1,4 +1,7 @@
+#include "clock.h"
 #include "kalloc.h"
+#include "riscv.h"
+#include "trap.h"
 #include "types.h"
 #include "utils.h"
 #include "sbi.h"
@@ -18,6 +21,13 @@ start(){
     if(cpuid() == 0){
         printinit();
         kinit();
+        trapinithart();
+        timelockinit();
+        timerinit();
+        asm volatile(
+            "ebreak \n"
+        );
+        
     }
     cpuinit();
     os_main();

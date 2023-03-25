@@ -1,6 +1,4 @@
 #include "kalloc.h"
-extern char end[];
-
 
 // Physical memory allocator, for user processes,
 // kernel stacks, page-table pages,

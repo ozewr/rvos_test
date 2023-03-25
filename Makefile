@@ -3,6 +3,7 @@ U = user
 
 OBJS =  \
 	$K/entry.o \
+	$K/kernelvec.o \
 	$K/os.o		\
 	$K/sbi.o    \
 	$K/print.o	\
@@ -11,6 +12,8 @@ OBJS =  \
 	$K/lock.o \
 	$K/kalloc.o \
 	$K/string.o \
+	$K/trap.o \
+	$K/clock.o \
 
 OBJSS =  \
 	$K/os.o		\
@@ -21,6 +24,8 @@ OBJSS =  \
 	$K/lock.o \
 	$K/kalloc.o \
 	$K/string.o \
+	$K/trap.o \
+	$K/clock.o \
 
 
 	
@@ -53,6 +58,10 @@ $K/entry.o : $K/entry.s
 	@$(CC)  $(CFLAGS) -c $K/entry.s -o $K/entry.o	
 	@echo "CC+"
 
+$K/kernelvec.o : $K/kernelvec.s 
+	@$(CC)  $(CFLAGS) -c $K/kernelvec.s -o $K/kernelvec.o	
+	@echo "CC+"
+
 all: $(OBJSS)
 $(OBJSS): $K/%.o: $K/%.c
 	@$(CC) -c $(CFLAGS) $(INC) $< -o $@
@@ -71,4 +80,5 @@ clean:
 	rm $(OBJSS)  $K/kernel \
 	$K/kernel.*	\
 	$K/entry.o \
+	$K/kernelvec.o \
 	$K/*.d
