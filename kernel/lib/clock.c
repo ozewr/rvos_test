@@ -17,11 +17,11 @@ void timelockinit(){
 
 
 void timerinit(){
-    //int hart_id =r_tp();
+    // time interrupt on
     w_sie(SIE_STIE);
+    
     ticks = 0;
-    //set_timer(0);
-    set_spie();
+    //for next time interrupt
     clock_set_next_ent();
 }
 

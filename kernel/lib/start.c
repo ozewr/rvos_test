@@ -24,10 +24,6 @@ start(){
         trapinithart();
         timelockinit();
         timerinit();
-        asm volatile(
-            "ebreak \n"
-        );
-        
     }
     cpuinit();
     os_main();
