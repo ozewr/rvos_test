@@ -6,6 +6,7 @@
 #include "utils.h"
 #include "sbi.h"
 #include "print.h"
+#include "vm.h"
 __attribute__((aligned(16))) char stacks[4096 * NCPU];
 
 
@@ -20,10 +21,16 @@ start(){
     thread_start();
     if(cpuid() == 0){
         printinit();
+        
         kinit();
-        trapinithart();
+
         timelockinit();
+        trapinithart();
         timerinit();
+
+        kvminit();
+        kvminitthart();
+
     }
     cpuinit();
     os_main();

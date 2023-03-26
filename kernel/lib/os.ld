@@ -6,11 +6,17 @@ BASE_ADDRESS = 0X80200000;
 SECTIONS{
     . = BASE_ADDRESS;
     .text : {
-        *(.text._entry)
-        *(.text .stub .text.* .gnu.linkonce.t.*)   
+        *(.text .text.*)
+        . = ALIGN(0x1000);
+        _trampoline = .;
+        *(trampsec)
+        . = ALIGN(0x1000);
+        ASSERT(. - _trampoline == 0x1000, "error: trampoline larger than one page");
+        PROVIDE(etext = .);
     }
-    PROVIDE(etext = .);
+
     .rodata : {
+        . = ALIGN(16);
         *(.rodata .rodata.* .gnu.linkonce.r.*)
     }
 
@@ -26,8 +32,11 @@ SECTIONS{
     }
 
     .bss : {
+        . = ALIGN(16);
         *(.bss)
+        . = ALIGN(16);
         *(.bss.*)
+        . = ALIGN(16);
         *(.sbss*)
     }
 

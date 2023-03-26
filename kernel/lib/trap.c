@@ -16,6 +16,7 @@ extern uint64 ticks;
 extern struct spinlock tickslock;
 
 enum intr_cause{
+    NOCOMT,
     BREAKPOINT,
     TIME,
 };

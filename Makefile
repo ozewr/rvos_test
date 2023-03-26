@@ -4,6 +4,7 @@ U = user
 OBJS =  \
 	$K/entry.o \
 	$K/kernelvec.o \
+	$K/trampoline.o \
 	$K/os.o		\
 	$K/sbi.o    \
 	$K/print.o	\
@@ -14,6 +15,8 @@ OBJS =  \
 	$K/string.o \
 	$K/trap.o \
 	$K/clock.o \
+	$K/vm.o \
+	
 
 OBJSS =  \
 	$K/os.o		\
@@ -26,6 +29,7 @@ OBJSS =  \
 	$K/string.o \
 	$K/trap.o \
 	$K/clock.o \
+	$K/vm.o \
 
 
 	
@@ -61,7 +65,9 @@ $K/entry.o : $K/entry.s
 $K/kernelvec.o : $K/kernelvec.s 
 	@$(CC)  $(CFLAGS) -c $K/kernelvec.s -o $K/kernelvec.o	
 	@echo "CC+"
-
+$K/trampoline.o : $K/trampoline.s
+	@$(CC)  $(CFLAGS) -c $K/trampoline.s -o $K/trampoline.o	
+	@echo "CC+"
 all: $(OBJSS)
 $(OBJSS): $K/%.o: $K/%.c
 	@$(CC) -c $(CFLAGS) $(INC) $< -o $@
@@ -81,4 +87,6 @@ clean:
 	$K/kernel.*	\
 	$K/entry.o \
 	$K/kernelvec.o \
+	$K/trampoline.o \
 	$K/*.d
+

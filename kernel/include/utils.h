@@ -4,7 +4,7 @@
 #include "types.h"
 #include "lock.h"
 #include "string.h"
-
+#include "vm.h"
 #define NCPU 3
 struct context {
 
